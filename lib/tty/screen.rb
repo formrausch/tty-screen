@@ -78,8 +78,14 @@ module TTY
     def from_io_console
       return if jruby?
       Kernel.require 'io/console'
-      size = IO.console.winsize
-      size if nonzero_column?(size[1])
+      # console might not be defined
+      if IO.console
+        size = IO.console.winsize
+        size if nonzero_column?(size[1])
+      else
+        80
+      end
+      
     rescue LoadError
       # Didn't find io/console in stdlib
     end
