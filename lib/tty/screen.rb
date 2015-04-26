@@ -83,7 +83,7 @@ module TTY
         size = IO.console.winsize
         size if nonzero_column?(size[1])
       else
-        80
+        [55, 137]
       end
       
     rescue LoadError
